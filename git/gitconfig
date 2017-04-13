@@ -1,12 +1,13 @@
 [user]
-    name = bgusach
+    name = Bor González Usach
     email = bgusach@gmail.com
 
 [credential]
-    helper = cache
+    helper = manager
 
 [core]
     editor = vim
+    excludesfile = ~/.gitignore-global
 
 [alias]
     unstage = reset -q HEAD --
