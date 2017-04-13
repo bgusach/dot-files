@@ -1,0 +1,25 @@
+[user]
+	name = bgusach
+	email = bgusach@gmail.com
+
+[credential]
+	helper = cache
+
+[core]
+	editor = vim
+
+[alias]
+    unstage = reset -q HEAD --
+    discard = checkout --
+    amend = commit --amend
+    summary = status -u -s
+    graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %ar) %Cred%d' --date-order
+    history = log -10 --format=format:'%Cgreen%h %Creset• %s (%aN, %ar)'
+    delete-branch = branch -d
+    branches = branch -a
+    tags = tag
+    prestage = diff
+    precommit = diff --cached
+    remotes = remote -v
+    untrack = rm -r --cached
+
