@@ -1,19 +1,19 @@
 [user]
-	name = bgusach
-	email = bgusach@gmail.com
+    name = bgusach
+    email = bgusach@gmail.com
 
 [credential]
-	helper = cache
+    helper = cache
 
 [core]
-	editor = vim
+    editor = vim
 
 [alias]
     unstage = reset -q HEAD --
     discard = checkout --
     amend = commit --amend
     summary = status -u -s
-    graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %ar) %Cred%d' --date-order
+    graph = log --graph -10 --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(30,trunc)%s (%cN, %ar) %Cred%d' --date-order
     history = log -10 --format=format:'%Cgreen%h %Creset• %s (%aN, %ar)'
     delete-branch = branch -d
     branches = branch -a
@@ -22,4 +22,5 @@
     precommit = diff --cached
     remotes = remote -v
     untrack = rm -r --cached
+    aliases = config --get-regexp "^alias"
 
