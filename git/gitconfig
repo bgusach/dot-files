@@ -1,20 +1,21 @@
 [user]
-    name = bgusach
+    name = Bor Gonz√°lez Usach
     email = bgusach@gmail.com
 
 [credential]
-    helper = cache
+    helper = manager
 
 [core]
     editor = vim
+    excludesfile = ~/.gitignore-global
 
 [alias]
     unstage = reset -q HEAD --
     discard = checkout --
     amend = commit --amend
     summary = status -u -s
-    graph = log --graph -10 --remotes --tags  --format=format:'%Cgreen%h %Cresetï %<(30,trunc)%s (%cN, %ar) %Cred%d' --date-order
-    history = log -10 --format=format:'%Cgreen%h %Cresetï %s (%aN, %ar)'
+    graph = log --graph -10 --remotes --tags  --format=format:'%Cgreen%h %Creset¬ï %<(30,trunc)%s (%cN, %ar) %Cred%d' --date-order
+    history = log -10 --format=format:'%Cgreen%h %Creset¬ï %s (%aN, %ar)'
     delete-branch = branch -d
     branches = branch -a
     tags = tag
