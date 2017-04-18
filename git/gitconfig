@@ -23,5 +23,5 @@
     precommit = diff --cached
     remotes = remote -v
     untrack = rm -r --cached
-    aliases = "!git config --list | grep -oP 'alias\\.\\K\\.*'"
+    aliases = "!git config --list | grep -oP 'alias\\.\\K.*'"
 
