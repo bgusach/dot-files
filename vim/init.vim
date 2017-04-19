@@ -3,7 +3,7 @@
 " linux (neovim): ~/.config/vim/vim.init --> not 100% sure there
 
 set encoding=utf-8
-" set autoread
+set autoread  " Reloads file if changes detected
 set tabstop=4 shiftwidth=4 expandtab " Set tab to 4 spaces
 set relativenumber
 set number
