@@ -1,10 +1,10 @@
 " Symlink this file to:
 " windows: ~/vimfiles/gvimrc
-" linux: ~/.config/vim/vim.init --> not 100% sure there
+" linux (neovim): ~/.config/vim/vim.init --> not 100% sure there
 
-" Set tab to 4 spaces
-set tabstop=4 shiftwidth=4 expandtab
-
+set encoding=utf-8
+" set autoread
+set tabstop=4 shiftwidth=4 expandtab " Set tab to 4 spaces
 set relativenumber
 set number
 set breakindent
@@ -18,10 +18,27 @@ Plug 'pangloss/vim-javascript'
 Plug 'morhetz/gruvbox' 
 call plug#end()
 
-
 " Activate gruvbox theme
 set background=dark
 colorscheme gruvbox
 
-" TODO: switch between consolas/inconsolata depending on SO
-set guifont=Consolas:h14:cANSI:qDRAFT
+if has('unix')
+    let my_font = 'Inconsolata'
+else
+    let my_font = 'Consolas'
+endif
+
+let &guifont=my_font . ':h14:cANSI:qDRAFT'
+
+let vim_temp = $HOME . '/.vimtemp//' 
+
+if !isdirectory(vim_temp)
+    call mkdir(vim_temp, 'p')
+endif
+
+set backup
+let &backupdir = vim_temp
+set undofile
+let &undodir = vim_temp
+let &directory = vim_temp  " For .swp files
+
