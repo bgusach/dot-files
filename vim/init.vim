@@ -22,14 +22,9 @@ call plug#end()
 set background=dark
 colorscheme gruvbox
 
-if has('unix')
-    let my_font = 'Inconsolata'
-else
-    let my_font = 'Consolas'
-endif
+set guifont=Consolas:h14,Inconsolata:h14
 
-let &guifont=my_font . ':h14:cANSI:qDRAFT'
-
+" Set temp files stuff
 let vim_temp = $HOME . '/.vimtemp//' 
 
 if !isdirectory(vim_temp)
