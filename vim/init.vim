@@ -1,6 +1,6 @@
 " Symlink this file to:
-" windows: ~/vimfiles/gvimrc
-" linux (neovim): ~/.config/vim/vim.init --> not 100% sure there
+" - windows: ~/vimfiles/vimrc
+" - linux (neovim): ~/.config/nvim/vim.init
 
 set encoding=utf-8
 set autoread  " Reloads file if changes detected
