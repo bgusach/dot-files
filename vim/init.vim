@@ -8,6 +8,7 @@ set tabstop=4 shiftwidth=4 expandtab " Set tab to 4 spaces
 set relativenumber
 set number
 set breakindent
+set hlsearch  " Highlight search results
 
 " vim-plug plugins
 " Remember to call :PlugInstall after changing anything.

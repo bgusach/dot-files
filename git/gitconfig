@@ -1,9 +1,8 @@
 [user]
-    name = Bor González Usach
-    email = bgusach@gmail.com
+    useConfigOnly = true
 
 [credential]
-    helper = manager
+    helper = cache --timeout=3600
 
 [core]
     editor = vim
