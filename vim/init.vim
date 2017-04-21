@@ -2,13 +2,16 @@
 " - windows: ~/vimfiles/vimrc
 " - linux (neovim): ~/.config/nvim/vim.init
 
+set nocompatible  " Deactivate VI compatibility
 set encoding=utf-8
 set autoread  " Reloads file if changes detected
-set tabstop=4 shiftwidth=4 expandtab " Set tab to 4 spaces
+set tabstop=2 shiftwidth=2 expandtab " Set indentation spaces
 set relativenumber
 set number
 set breakindent
 set hlsearch  " Highlight search results
+set backspace=2   " Some hack so that backspace works properly in windows
+set gdefault  " Inverts the /g. Global modifier per default
 
 " vim-plug plugins
 " Remember to call :PlugInstall after changing anything.
@@ -17,6 +20,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'pangloss/vim-javascript'
 " Plug 'Valloric/YouCompleteMe'
 Plug 'morhetz/gruvbox' 
+Plug 'tpope/vim-eunuch'
 call plug#end()
 
 " Activate gruvbox theme
@@ -37,4 +41,15 @@ let &backupdir = vim_temp
 set undofile
 let &undodir = vim_temp
 let &directory = vim_temp  " For .swp files
+
+
+" Screen splitting stuff
+" Move directly between panes by using ctrl + jklh
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+set splitbelow
+set splitright
 
