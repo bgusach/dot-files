@@ -21,6 +21,7 @@ Plug 'pangloss/vim-javascript'
 " Plug 'Valloric/YouCompleteMe'
 Plug 'morhetz/gruvbox' 
 Plug 'tpope/vim-eunuch'
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 " Activate gruvbox theme
