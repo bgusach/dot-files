@@ -22,11 +22,16 @@ Plug 'pangloss/vim-javascript'
 Plug 'morhetz/gruvbox' 
 Plug 'tpope/vim-eunuch'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 " Activate gruvbox theme
 set background=dark
 colorscheme gruvbox
+
+" Set airline theme
+let g:airline_theme = 'distinguished'
 
 set guifont=Consolas:h14,Inconsolata:h14
 
