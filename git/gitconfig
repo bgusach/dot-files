@@ -8,8 +8,16 @@
     editor = vim
     excludesfile = ~/.gitignore-global
 
+[diff]
+    indentHeuristic = true
+
+[pager]
+  log = diff-highlight | less
+  show = diff-highlight | less
+  diff = diff-highlight | less
+
 [alias]
-    unstage = reset -q HEAD --
+    unstoge = reset -q HEAD --
     discard = checkout --
     amend = commit --amend
     summary = status -u -s
@@ -19,15 +27,16 @@
     rm-remote-branch = git push --delete origin
 
     branches = branch -a
-    switch = "!f() { git checkout $1 2>/dev/null || git checkout -b $1; }; f"
+
+    # Create branch if it does not exist, and check it out
+    switch = "!f() { git checkout $(git show-ref --verify --quiet refs/heads/\"$1\" || echo '-b') \"$1\"; }; f"
     tags = tag
     remotes = remote -v
     untrack = rm -r --cached
     nevermind = !git reset --hard HEAD && git clean -d -f
     filelog = log -u
-    diffy = diff --word-diff=color --indent-heuristic
-    prestage = !git diffy
-    precommit = !git diffy --cached
+    prestage = diff
+    precommit = diff --cached
     
     aliases = "!git config --list | grep -oP 'alias\\.\\K.*'"
 
