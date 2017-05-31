@@ -19,11 +19,13 @@
     delete-remote-branch = git push --delete origin
     branches = branch -a
     tags = tag
-    prestage = diff
-    precommit = diff --cached
     remotes = remote -v
     untrack = rm -r --cached
     nevermind = !git reset --hard HEAD && git clean -d -f
+    filelog = log -u
+    diffy = diff --word-diff=color --indent-heuristic
+    prestage = !git diffy
+    precommit = !git diffy --cached
     
-    aliases = "!git config --list | grep -oP 'alias\\.\\K.*'"
+    aliasesi = "!git config --list | grep -oP 'alias\\.\\K.*'"
 
