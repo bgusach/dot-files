@@ -26,7 +26,7 @@
     prestage = diff
     precommit = diff --cached
 
-    history = log -10 --tags --date-order --format=format:'%C(auto)%h %C(cyan)[%<(8,trunc)%aN] %C(auto) %s %d' 
+    history = log -10 --tags --date-order --format=format:'%C(auto)%h %d %C(cyan)[%<(8,trunc)%aN] %C(auto)%s'
     graph = !git history --graph --branches
     remote-graph = !git history --graph --remotes
     filelog = log -u
