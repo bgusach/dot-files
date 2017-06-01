@@ -12,31 +12,33 @@
     indentHeuristic = true
 
 [pager]
-  log = diff-highlight | less
-  show = diff-highlight | less
-  diff = diff-highlight | less
+    log = diff-highlight | less
+    show = diff-highlight | less
+    diff = diff-highlight | less
 
 [alias]
-    unstoge = reset -q HEAD --
+    unstage = reset -q HEAD --
     discard = checkout --
     amend = commit --amend
     summary = status -u -s
-    graph = log --graph -10 --remotes --tags  --format=format:'%Cgreen%h %Creset%<(30,trunc)%s (%cN, %ar) %Cred%d' --date-order
-    history = log -10 --format=format:'%Cgreen%h %Creset%s (%aN, %ar)'
+    untrack = rm -r --cached
+    nevermind = !git reset --hard HEAD && git clean -d -f
+    prestage = diff
+    precommit = diff --cached
+
+    history = log -10 --tags --date-order --format=format:'%C(auto)%h %C(cyan)[%<(8,trunc)%aN] %C(auto) %s %d' 
+    graph = !git history --graph --branches
+    remote-graph = !git history --graph --remotes
+    filelog = log -u
+
+    branches = branch -a
     rm-branch = branch -d
     rm-remote-branch = git push --delete origin
 
-    branches = branch -a
-
-    # Create branch if it does not exist, and check it out
+    stashes = stash list
     switch = "!f() { git checkout $(git show-ref --verify --quiet refs/heads/\"$1\" || echo '-b') \"$1\"; }; f"
     tags = tag
     remotes = remote -v
-    untrack = rm -r --cached
-    nevermind = !git reset --hard HEAD && git clean -d -f
-    filelog = log -u
-    prestage = diff
-    precommit = diff --cached
     
     aliases = "!git config --list | grep -oP 'alias\\.\\K.*'"
 
