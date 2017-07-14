@@ -12,6 +12,7 @@ set breakindent
 set hlsearch  " Highlight search results
 set backspace=2   " Some hack so that backspace works properly in windows
 set gdefault  " Inverts the /g. Global modifier per default
+set guicursor=  " Fixes weird characters problem
 
 " vim-plug plugins
 " Remember to call :PlugInstall after changing anything.
