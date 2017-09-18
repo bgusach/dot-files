@@ -13,6 +13,7 @@ set hlsearch  " Highlight search results
 set backspace=2   " Some hack so that backspace works properly in windows
 set gdefault  " Inverts the /g. Global modifier per default
 set guicursor=  " Fixes weird characters problem
+set mouse=a  " Enables mouse clicking
 
 " vim-plug plugins
 " Remember to call :PlugInstall after changing anything.
@@ -25,6 +26,9 @@ Plug 'tpope/vim-eunuch'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 " Activate gruvbox theme
