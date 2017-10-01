@@ -29,6 +29,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+
 call plug#end()
 
 " Activate gruvbox theme
