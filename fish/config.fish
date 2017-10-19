@@ -3,6 +3,7 @@
 alias ll "ls -lh --color=auto"
 alias vim "nvim"
 alias gpg "gpg2"
+alias xstart "xdg-open"
 
 set FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
