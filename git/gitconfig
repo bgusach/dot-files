@@ -41,9 +41,11 @@
     switch = "!f() { git checkout $(git show-ref --verify --quiet refs/heads/\"$1\" || echo '-b') \"$1\"; }; f"
     tags = tag
     remotes = remote -v
+    serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
     
     aliases = "!git config --list | grep -oP 'alias\\.\\K.*'"
+    common-ancestor = "!f() { git merge-base \"$1\" \"${2-HEAD}\"; }; f" 
 
 [commit]
-    gpgsign = true
+    gpgsign = false
 
