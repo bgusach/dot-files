@@ -4,9 +4,6 @@
     useConfigOnly = true
     signingkey = 25D57325399F0E54
 
-[credential]
-    # helper = cache --timeout=3600
-
 [core]
     editor = vim
     excludesfile = ~/.gitignore-global
@@ -52,5 +49,5 @@
     gpgsign = true
 
 [include]
-    path = c:\\dev\\tools\\work-gitconfig
+    path = ~/.additional-gitconfig
 
