@@ -1,4 +1,6 @@
 [user]
+    name = bgusach
+    email = bgusach@gmail.com
     useConfigOnly = true
     signingkey = 25D57325399F0E54
 
@@ -47,5 +49,8 @@
     common-ancestor = "!f() { git merge-base \"$1\" \"${2-HEAD}\"; }; f" 
 
 [commit]
-    gpgsign = false
+    gpgsign = true
+
+[include]
+    path = c:\\dev\\tools\\work-gitconfig
 
