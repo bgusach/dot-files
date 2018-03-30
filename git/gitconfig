@@ -1,8 +1,8 @@
 [user]
-    name = bgusach
+    name = Bor González-Usach
     email = bgusach@gmail.com
     useConfigOnly = true
-    signingkey = 25D57325399F0E54
+    signingKey = 399F0E54
 
 [core]
     editor = vim
