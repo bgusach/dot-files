@@ -1,5 +1,5 @@
 [user]
-    name = Bor González-Usach
+    name = Bor Gonzalez-Usach
     email = bgusach@gmail.com
     useConfigOnly = true
     signingKey = 399F0E54
@@ -18,36 +18,25 @@
 
 [alias]
     unstage = reset -q HEAD --
-    discard = checkout --
-    amend = commit --amend
     summary = status -u -s
     untrack = rm -r --cached
-    nevermind = !git reset --hard HEAD && git clean -d -f
     prestage = diff
     precommit = diff --cached
-    go-back = reset --soft HEAD~1
 
-    history = log -10 --tags --date-order --format=format:'%C(auto)%h %d %C(cyan)[%<(8,trunc)%aN] %C(auto)%s'
-    graph = !git history --graph --branches
-    remote-graph = !git history --graph --remotes
-    filelog = log -u
+    graph = log --graph
 
     branches = branch -a
-    rm-branch = branch -d
     rm-remote-branch = !git push --delete origin
 
     stashes = stash list
-    switch = "!f() { git checkout $(git show-ref --verify --quiet refs/heads/\"$1\" || echo '-b') \"$1\"; }; f"
     tags = tag
     remotes = remote -v
-    serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
     
     aliases = "!git config --list | grep -oP 'alias\\.\\K.*'"
     common-ancestor = "!f() { git merge-base \"$1\" \"${2-HEAD}\"; }; f" 
 
 [commit]
-    gpgsign = true
+    gpgsign = false
 
 [include]
-    path = ~/.additional-gitconfig
-
+    path = ~/.gitconfig-additional
