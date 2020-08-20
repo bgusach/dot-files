@@ -3,3 +3,5 @@
 *.pyc
 tmp
 node_modules
+.idea/
+*.iml
