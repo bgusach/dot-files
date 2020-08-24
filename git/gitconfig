@@ -16,6 +16,9 @@
     show = diff-highlight | less
     diff = diff-highlight | less
 
+[remote "origin"]
+    prune = true
+
 [alias]
     unstage = reset -q HEAD --
     summary = status -u -s
