@@ -45,5 +45,9 @@ function fish_prompt
 
   end
 
+  if test $last_status -ne 0
+    echo -ns $error_color " [" $last_status "]" $normal_color
+  end
+
   echo -ns " "
 end
