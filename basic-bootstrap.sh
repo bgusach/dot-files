@@ -22,8 +22,8 @@ sudo chmod +x ~/.local/bin/diff-highlight
 
 
 # Other goodies
-sudo apt install --yes ripgrep
-sudo apt install --yes neovim
-sudo apt install --yes fd-find
-sudo apt install --yes fzf
-
+sudo apt install -y ripgrep
+sudo apt install -y neovim
+sudo apt install -y fd-find
+sudo apt install -y fzf
+sudo apt install -y python3-pip
