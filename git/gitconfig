@@ -8,12 +8,13 @@
     editor = vim
     excludesfile = ~/.gitignore-global
     pager = delta
+    autocrlf = input
 
 [delta]
     line-numbers = true
     navigate = true
     features = decorations
-    side-by-side = true
+    # side-by-side = true
 
 [delta "interactive"]
     keep-plus-minus-markers = false
@@ -39,7 +40,6 @@
 
 [diff]
     indentHeuristic = true
-    colorMoved = default
 
 [remote "origin"]
     prune = true
@@ -68,3 +68,13 @@
 
 [include]
     path = ~/.gitconfig-additional
+
+[credential]
+    helper = /usr/local/bin/git-credential-manager
+    credentialStore = secretservice
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

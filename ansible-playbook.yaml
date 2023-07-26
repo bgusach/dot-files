@@ -1,0 +1,119 @@
+# Instructions:
+# - Copy this file locally (no git necessary)
+# - apt install ansible
+# - sudo ansible-playbook ansible-playbook.yaml --extra-vars="user=$USER"
+# pass --skip-tags=dot-files-repo
+- name: Create developer env
+  hosts: localhost
+  connection: local
+  # Be user per default, use "become_user: root" only where necessary
+  become: true
+  become_user: "{{ user }}"
+  vars:
+    "home": "/home/{{ user }}"
+    "repos": "{{ home }}/devel/repos"
+    "config": "{{ home }}/.config"
+    "dotfiles": "{{ repos }}/dot-files"
+
+  tasks:
+    # - name: hello world
+    #   debug:
+    #     msg: "hello world!, I'm {{ user }} and I come from {{ home }}!!"
+
+    - name: Create common folders
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - "{{ repos }}"
+        - "{{ home }}/.local.bin"
+        - "{{ home }}/.local/share/nvim/site/autoload"
+
+    - name: Checkout dot-files repository
+      tags: [dot-files-repo]
+      git:
+        repo: https://github.com/bgusach/dot-files
+        dest: "{{ dotfiles }}"
+    
+    - name: Symlink config files
+      file: "{{ item }}"
+      loop:
+        - src: "{{ dotfiles }}/fish/config.fish"
+          dest: "{{ config }}/fish/conf.d/config.fish"
+          state: link
+          force: true
+        - src: "{{ dotfiles }}/fish/functions"
+          dest: "{{ config }}/fish/functions"
+          state: link
+          force: true
+        - src: "{{ dotfiles }}/git/gitconfig"
+          dest: "{{ home }}/.gitconfig"
+          state: link
+        - src: "{{ dotfiles }}/git/gitignore-global"
+          dest: "{{ home }}/.gitignore-global"
+          state: link
+        - path: "{{ config }}/nvim"
+          state: directory
+        - src: "{{ dotfiles }}/vim/init.vim"
+          dest: "{{ config }}/nvim/init.vim"
+          state: link
+    
+    - name: Ensure software-properties-common is installed (allows PPA addition)
+      become_user: "root"
+      apt:
+        name: software-properties-common
+        state: present
+
+    - name: Add PPAs
+      become_user: "root"
+      apt_repository:
+        repo: "{{ item }}"
+        state: present
+        # To find out which one your mint is basing on:
+        # cat /etc/upstream-release/lsb-release 
+        codename: jammy
+      loop: 
+        - "ppa:fish-shell/release-3"
+        - "ppa:neovim-ppa/stable"
+        
+
+    - name: Install common dev tools
+      become_user: root
+      apt:
+        state: latest
+        # NOTE: if "apt update" throws warnings, this task will fail.
+        # A workaround is to update by hand and comment to use update_cache: false 
+        # update_cache: true
+        name:
+          - ripgrep
+          - neovim
+          - fd-find
+          - fzf
+          - python3-pip
+          - git
+          - fish
+          - jq
+
+    - name: Set fish as default shell
+      user:
+        name: "{{ user }}"
+        shell: /usr/bin/fish
+      
+    - name: Install vimplug
+      get_url:
+        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        dest: "{{ home }}/.local/share/nvim/site/autoload/plug.vim"
+
+    - name: Install Git Credential Manager (GCM)
+      become_user: root
+      apt:
+        # NOTE: this should be smarter and fetch the latest version, but for the
+        # moment it's good enough.
+        # https://github.com/git-ecosystem/git-credential-manager/releases/latest
+        # https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#get-the-latest-release
+        deb: https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.2.2/gcm-linux_amd64.2.2.2.deb
+
+    - name: Install delta (diff viewer)
+      become_user: root
+      apt:
+        deb: https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb
