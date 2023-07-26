@@ -13,6 +13,11 @@ set FZF_ALT_C_COMMAND 'fd --type=d'
 
 
 set -x PATH "$HOME/.local/bin" $PATH
+
+# The standard fish functions dir is git-tracked. To be able to define functions
+# without tracking them, add another dir.
+set -x fish_function_path $fish_function_path "$HOME/.config/fish/additional-functions"
+
 fish_vi_key_bindings
 # bind -M insert \cf accept-autosuggestion
 
