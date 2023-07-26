@@ -16,3 +16,6 @@ set -x PATH "$HOME/.local/bin" $PATH
 fish_vi_key_bindings
 # bind -M insert \cf accept-autosuggestion
 
+# Bind reverse search to <ctrl-h> (history), so that <ctrl-r> can be used within neovim terminal mode
+bind -M insert \ch fzf-history-widget  
+
