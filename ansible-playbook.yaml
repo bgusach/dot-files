@@ -2,7 +2,8 @@
 # - Copy this file locally (no git necessary)
 # - apt install ansible
 # - sudo ansible-playbook ansible-playbook.yaml --extra-vars="user=$USER"
-# pass --skip-tags=dot-files-repo
+# When developing this playbook, pass --skip-tags=dot-files-repo
+# to skip checking out this repo, as it won't work.
 - name: Create developer env
   hosts: localhost
   connection: local
