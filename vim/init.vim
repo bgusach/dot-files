@@ -6,14 +6,16 @@ set nocompatible  " Deactivate VI compatibility
 set encoding=utf-8
 set autoread  " Reloads file if changes detected
 set tabstop=4 shiftwidth=4 expandtab " Set indentation spaces
+" Numbering. In general not that useful. Call :set number where needed.
 " set relativenumber
-set number
+" set number
 set breakindent
 set hlsearch  " Highlight search results
 set backspace=2   " Some hack so that backspace works properly in windows
 set gdefault  " Inverts the /g. Global modifier per default
 set guicursor=  " Fixes weird characters problem
 set mouse=a  " Enables mouse clicking
+set clipboard+=unnamedplus  " Default register shared with OS clipboard
 
 " Using vim-plug: https://github.com/junegunn/vim-plug
 " vim-plug plugins
@@ -29,13 +31,16 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'tpope/vim-commentary'
 " https://nikvdp.com/post/neomux/
 Plug 'nikvdp/neomux'
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim'
-Plug 'chrisbra/recover.vim'
+Plug 'junegunn/fzf.vim'
+" I think this is overlaps with the installation via apt, but without
+" it, the plugin doesn't work :S
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
+" Plugin not to go crazy when a recovery file is found.
+Plug 'chrisbra/recover.vim'
 call plug#end()
 
-" Activate gruvbox theme
+" gruvbox theme
 set background=dark
 colorscheme gruvbox
 
