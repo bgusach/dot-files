@@ -27,7 +27,7 @@
         state: directory
       loop:
         - "{{ repos }}"
-        - "{{ home }}/.local.bin"
+        - "{{ home }}/.local/bin"
         - "{{ home }}/.local/share/nvim/site/autoload"
 
     - name: Checkout dot-files repository
@@ -57,6 +57,9 @@
           state: directory
         - src: "{{ dotfiles }}/vim/init.vim"
           dest: "{{ config }}/nvim/init.vim"
+          state: link
+        - src: "{{ dotfiles }}/ripgrep"
+          dest: "{{ config }}/ripgrep"
           state: link
     
     - name: Ensure software-properties-common is installed (allows PPA addition)

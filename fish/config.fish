@@ -11,6 +11,7 @@ set FZF_DEFAULT_COMMAND 'fd --type=f'
 set FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set FZF_ALT_C_COMMAND 'fd --type=d'
 
+set -x RIPGREP_CONFIG_PATH $HOME/.config/ripgrep
 
 fish_add_path "$HOME/.local/bin"
 
