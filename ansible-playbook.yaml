@@ -11,10 +11,10 @@
   become: true
   become_user: "{{ user }}"
   vars:
-    "home": "/home/{{ user }}"
-    "repos": "{{ home }}/devel/repos"
-    "config": "{{ home }}/.config"
-    "dotfiles": "{{ repos }}/dot-files"
+    home: "/home/{{ user }}"
+    repos: "{{ home }}/devel/repos"
+    config: "{{ home }}/.config"
+    dotfiles: "{{ repos }}/dot-files"
 
   tasks:
     # - name: hello world
@@ -97,6 +97,7 @@
           - git
           - fish
           - jq
+          - gnupg2
 
     - name: Set fish as default shell
       user:
