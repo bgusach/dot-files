@@ -2,6 +2,15 @@
 # - Copy this file locally (no git necessary)
 # - apt install ansible
 # - sudo ansible-playbook ansible-playbook.yaml --extra-vars="user=$USER"
+#
+# If you want to test only and only one task, tag it like this:
+#
+#   tags:
+#     - lalala
+#
+# and then run ansible with --tags=lalala
+#
+#
 # When developing this playbook, pass --skip-tags=dot-files-repo
 # to skip checking out this repo, as it won't work.
 - name: Create developer env
@@ -122,3 +131,46 @@
       become_user: root
       apt:
         deb: https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb
+
+    - name: Install shutter
+      become_user: root
+      apt:
+        state: latest
+        name:
+          - shutter
+    
+    - name: Install emoji picker
+      community.general.flatpak:
+        name:  com.tomjwatson.Emote
+        state: present
+   
+    - name: Set shutter keyboard shortcut
+      community.general.dconf:
+        key: "/org/cinnamon/desktop/keybindings/custom-keybindings/shutter-screenshot/{{ item.key }}"
+        value: "{{ item.value | string }}"  # convert to string to avoid funky stuff
+      loop:
+        - key: "name"
+          value: "'shutter-screenshot'"
+        - key: "binding"
+          value: "['Print']"
+        - key: "command"
+          value: "'shutter -s'"
+  
+    - name: Set emoji picker keyboard shortcut
+      community.general.dconf:
+        key: "/org/cinnamon/desktop/keybindings/custom-keybindings/emoji-picker/{{ item.key }}"
+        value: "{{ item.value | string }}"  # convert to string to avoid funky stuff
+      loop:
+        - key: "name"
+          value: "'emoji-picker'"
+        - key: "binding"
+          value: "['<Super>period']"
+        - key: "command"
+          value: "'flatpak run com.tomjwatson.Emote'"
+ 
+    - name: Updating custom keyboard 'registry'
+      community.general.dconf:
+        key: "/org/cinnamon/desktop/keybindings/custom-list"
+        # As dumb as it is, custom shortcuts must be placed in this variable. Will collide with
+        # entries defined by hand, but hey... little by little.
+        value: "['shutter-screenshot', 'emoji-picker', '__dummy__']"
