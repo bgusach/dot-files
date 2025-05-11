@@ -144,7 +144,14 @@
         name:  com.tomjwatson.Emote
         state: present
    
+    # Keyboard shortcuts are set with dconf. It has a sort of minor drawback—it messes with the GUI tool to 
+    # define shortcuts (System settings → Keyboard shortcuts) and it's not possible to manually add 
+    # more shortcuts. Not that terrible. To define new shortcuts via GUI, delete all existing ones, add
+    # the new one and then run `dconf dump /org/cinnamon/desktop/keybindings/` to get what you should put
+    # here. Changes aren't always immediately effective–press Alt+F2 and type 'r[estart]' to restart
+    # Cinnamon.
     - name: Set shutter keyboard shortcut
+      tags: [shortcuts]
       community.general.dconf:
         key: "/org/cinnamon/desktop/keybindings/custom-keybindings/shutter-screenshot/{{ item.key }}"
         value: "{{ item.value | string }}"  # convert to string to avoid funky stuff
@@ -157,6 +164,7 @@
           value: "'shutter -s'"
   
     - name: Set emoji picker keyboard shortcut
+      tags: [shortcuts]
       community.general.dconf:
         key: "/org/cinnamon/desktop/keybindings/custom-keybindings/emoji-picker/{{ item.key }}"
         value: "{{ item.value | string }}"  # convert to string to avoid funky stuff
@@ -167,10 +175,24 @@
           value: "['<Super>period']"
         - key: "command"
           value: "'flatpak run com.tomjwatson.Emote'"
+
+    - name: Set vim-anywhere keyboard shortcut
+      tags: [shortcuts]
+      community.general.dconf:
+        key: "/org/cinnamon/desktop/keybindings/custom-keybindings/vim-everywhere/{{ item.key }}"
+        value: "{{ item.value | string }}"  # convert to string to avoid funky stuff
+      loop:
+        - key: "name"
+          value: "'vim-everywhere'"
+        - key: "binding"
+          value: "['<Super>v']"
+        - key: "command"
+          value: "'gnome-terminal -- {{ dotfiles }}/scripts/vim-everywhere'"
  
     - name: Updating custom keyboard 'registry'
+      tags: [shortcuts]
       community.general.dconf:
         key: "/org/cinnamon/desktop/keybindings/custom-list"
         # As dumb as it is, custom shortcuts must be placed in this variable. Will collide with
         # entries defined by hand, but hey... little by little.
-        value: "['shutter-screenshot', 'emoji-picker', '__dummy__']"
+        value: "['shutter-screenshot', 'emoji-picker', 'vim-everywhere', '__dummy__']"
