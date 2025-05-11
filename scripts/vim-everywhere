@@ -1,0 +1,14 @@
+#!/bin/bash
+set -euo pipefail
+
+TMP_FILE=/tmp/vim-anywhere.txt
+rm -f $TMP_FILE
+touch $TMP_FILE
+chmod o-r $TMP_FILE
+nvim $TMP_FILE
+xclip -selection clipboard $TMP_FILE 
+
+# Don't ask me why, but clipboard doesn't get populated
+# without a sleep.
+sleep 0.01
+
