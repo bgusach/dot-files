@@ -1,12 +1,17 @@
 #!/bin/bash
 set -euo pipefail
 
-TMP_FILE=/tmp/vim-anywhere.txt
-rm -f $TMP_FILE
-touch $TMP_FILE
-chmod o-r $TMP_FILE
-nvim $TMP_FILE
-xclip -selection clipboard $TMP_FILE 
+TMP_FILE=$(mktemp "/${TMP:-tmp}/vim-everywhere-XXXXXX")
+
+umask 0066  # Create files only with rw for user.
+vim "$TMP_FILE"
+
+if [ ! -f "$TMP_FILE" ]; then
+    exit 0
+fi
+
+xclip -selection clipboard "$TMP_FILE"
+rm "$TMP_FILE"
 
 # Don't ask me why, but clipboard doesn't get populated
 # without a sleep.
