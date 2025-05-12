@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-TMP_FILE=$(mktemp "/${TMP:-tmp}/vim-everywhere-XXXXXX")
+TMP_FILE=$(mktemp "/${TMPDIR:-tmp}/vim-everywhere-XXXXXX")
 
 umask 0066  # Create files only with rw for user.
 vim "$TMP_FILE"
