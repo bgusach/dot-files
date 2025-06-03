@@ -5,7 +5,7 @@
     signingKey = 399F0E54
 
 [core]
-    editor = vim
+    editor = nvim
     excludesfile = ~/.gitignore-global
     pager = delta
     autocrlf = input
