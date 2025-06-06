@@ -107,6 +107,7 @@
           - fish
           - jq
           - gnupg2
+          - xclip  # Necessary for our vim-everywhere
 
     - name: Set fish as default shell
       user:
