@@ -36,6 +36,7 @@
 
 [merge]
     conflictstyle = diff3
+    tool = bc
 
 [diff]
     # Diffs more suitable for humans
@@ -83,3 +84,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[mergetool "bc"]
+    trustExitCode = true
