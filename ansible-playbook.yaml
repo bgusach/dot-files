@@ -70,7 +70,10 @@
         - src: "{{ dotfiles }}/ripgrep"
           dest: "{{ config }}/ripgrep"
           state: link
-    
+        - src: "{{ dotfiles }}/scripts/howto"
+          dest: "{{ home }}/.local/bin/howto"
+          state: link
+
     - name: Ensure software-properties-common is installed (allows PPA addition)
       become_user: "root"
       apt:
