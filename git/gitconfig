@@ -5,7 +5,7 @@
     signingKey = 399F0E54
 
 [core]
-    editor = vim
+    editor = nvim
     excludesfile = ~/.gitignore-global
     pager = delta
     autocrlf = input
@@ -36,6 +36,18 @@
 
 [merge]
     conflictstyle = diff3
+    pager = delta
+    autocrlf = input
+
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+
+[add.interactive]
+    useBuiltin = false # required for git 2.37.0
+
+[merge]
+    conflictstyle = diff3
+    tool = bc
 
 [diff]
     # Diffs more suitable for humans
@@ -83,3 +95,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[mergetool "bc"]
+    trustExitCode = true

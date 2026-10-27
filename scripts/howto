@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+exec pi \
+    --print \
+    --thinking minimal \
+    --no-tools \
+    --no-session \
+    --no-context-files \
+    --no-extensions \
+    --no-skills \
+    --no-prompt-templates \
+    --system-prompt "You are a concise Linux CLI helper. Answer with the command, no explanation, no markup." \
+    "$@"
