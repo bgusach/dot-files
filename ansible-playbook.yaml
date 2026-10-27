@@ -114,15 +114,6 @@
         url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         dest: "{{ home }}/.local/share/nvim/site/autoload/plug.vim"
 
-    - name: Install Git Credential Manager (GCM)
-      become_user: root
-      apt:
-        # NOTE: this should be smarter and fetch the latest version, but for the
-        # moment it's good enough.
-        # https://github.com/git-ecosystem/git-credential-manager/releases/latest
-        # https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#get-the-latest-release
-        deb: https://github.com/git-ecosystem/git-credential-manager/releases/download/v3.0.2/gcm-linux-x64-3.0.2.deb
-
     - name: Install delta (diff viewer)
       become_user: root
       apt:

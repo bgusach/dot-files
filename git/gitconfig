@@ -86,10 +86,6 @@
     # Optional additional file for local deviations.
     path = ~/.gitconfig-additional
 
-[credential]
-    helper = /usr/local/bin/git-credential-manager
-    credentialStore = secretservice
-
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
