@@ -1,5 +1,3 @@
-# Symlink to ~/.config/fish/conf.d/config.fish
-
 alias ll "ls -lh --color=auto"
 alias vim "nvim"
 alias gpg "gpg2"
@@ -7,9 +5,9 @@ alias xstart "xdg-open"
 alias fd "fdfind"
 alias bat "batcat"
 
-set FZF_DEFAULT_COMMAND 'fd --type=f'
-set FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
-set FZF_ALT_C_COMMAND 'fd --type=d'
+set -gx FZF_DEFAULT_COMMAND 'fdfind --type=f'  # Used when calling 'fzf'... not that important
+set -gx FZF_CTRL_T_COMMAND 'fdfind'
+set -gx FZF_ALT_C_COMMAND 'fdfind --type=d'
 
 set -x RIPGREP_CONFIG_PATH $HOME/.config/ripgrep
 

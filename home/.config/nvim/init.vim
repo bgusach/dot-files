@@ -1,7 +1,3 @@
-" Symlink this file to:
-" - windows: ~/vimfiles/vimrc
-" - linux (neovim): ~/.config/nvim/vim.init
-
 set nocompatible  " Deactivate VI compatibility
 set encoding=utf-8
 set autoread  " Reloads file if changes detected
@@ -16,6 +12,17 @@ set gdefault  " Inverts the /g. Global modifier per default
 set guicursor=  " Fixes weird characters problem
 set mouse=a  " Enables mouse clicking
 set clipboard+=unnamedplus  " Default register shared with OS clipboard
+
+" Use space instead of backlash for leader key
+let mapleader = " "
+let maplocalleader = " "
+
+" Toggle between the two most recent buffers
+nnoremap <leader><Tab> :b#<CR>
+
+" Shift+l/h for next/previous buffer
+nnoremap <S-l> :bnext<CR>
+nnoremap <S-h> :bprevious<CR>
 
 " Using vim-plug: https://github.com/junegunn/vim-plug
 " vim-plug plugins
