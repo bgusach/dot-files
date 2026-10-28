@@ -21,9 +21,6 @@ fish_vi_key_bindings
 # Bind reverse search to <ctrl-h> (history), so that <ctrl-r> can be used within neovim terminal mode
 bind -M insert \ch fzf-history-widget
 
-# Bind reverse search to <ctrl-h> (history), so that <ctrl-r> can be used within neovim terminal mode
-bind -M insert \ch fzf-history-widget
-
 # Abbreviations
 abbr --add j --position=command just
 
@@ -32,7 +29,7 @@ abbr --add gc --position=command --set-cursor 'git commit --all -m "%"'
 abbr --add ga --position=command git add
 abbr --add gaa --position=command git add --all
 abbr --add gr --position=command git restore
-abbr --add gr --position=command 'git restore "*"'
+abbr --add gra --position=command 'git restore "*"'
 abbr --add gu --position=command git unstage
 abbr --add gua --position=command 'git unstage "*"'
 abbr --add gl --position=command git log

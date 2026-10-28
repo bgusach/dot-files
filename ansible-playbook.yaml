@@ -1,33 +1,20 @@
-# Instructions:
-# - Copy this file locally (no git necessary)
-# - apt install ansible
-# - sudo ansible-playbook ansible-playbook.yaml --extra-vars="user=$USER"
-#
 # If you want to test only and only one task, tag it like this:
 #
 #   tags:
 #     - lalala
 #
 # and then run ansible with --tags=lalala
-#
-#
+
 - name: Create developer env
   hosts: localhost
   connection: local
-  # Be user per default, use "become_user: root" only where necessary
-  become: true
-  become_user: "{{ user }}"
+  become: false
   vars:
-    home: "/home/{{ user }}"
+    home: "{{ ansible_env.HOME }}"
     repos: "{{ home }}/devel/repos"
     config: "{{ home }}/.config"
-    dotfiles: "{{ repos }}/dot-files"
 
   tasks:
-    # - name: hello world
-    #   debug:
-    #     msg: "hello world!, I'm {{ user }} and I come from {{ home }}!!"
-
     - name: Create common folders
       file:
         path: "{{ item }}"
@@ -37,40 +24,14 @@
         - "{{ home }}/.local/bin"
         - "{{ home }}/.local/share/nvim/site/autoload"
 
-    - name: Symlink config files
-      file: "{{ item }}"
-      loop:
-        - src: "{{ dotfiles }}/fish/config.fish"
-          dest: "{{ config }}/fish/conf.d/config.fish"
-          state: link
-          force: true
-        - src: "{{ dotfiles }}/fish/functions"
-          dest: "{{ config }}/fish/functions"
-          state: link
-          force: true
-        - src: "{{ dotfiles }}/git/gitconfig"
-          dest: "{{ home }}/.gitconfig"
-          state: link
-        - src: "{{ dotfiles }}/git/gitignore-global"
-          dest: "{{ home }}/.gitignore-global"
-          state: link
-        - path: "{{ config }}/nvim"
-          state: directory
-        - src: "{{ dotfiles }}/vim/init.vim"
-          dest: "{{ config }}/nvim/init.vim"
-          state: link
-        - src: "{{ dotfiles }}/ripgrep"
-          dest: "{{ config }}/ripgrep"
-          state: link
-
     - name: Ensure software-properties-common is installed (allows PPA addition)
-      become_user: "root"
+      become: true
       apt:
         name: software-properties-common
         state: present
 
     - name: Add PPAs
-      become_user: "root"
+      become: true
       apt_repository:
         repo: "{{ item }}"
         state: present
@@ -81,9 +42,8 @@
         - "ppa:fish-shell/release-3"
         - "ppa:neovim-ppa/stable"
         
-
     - name: Install common dev tools
-      become_user: root
+      become: true
       apt:
         state: latest
         # NOTE: if "apt update" throws warnings, this task will fail.
@@ -95,15 +55,28 @@
           - fd-find
           - fzf
           - python3-pip
-          - git
           - fish
           - jq
           - gnupg2
           - xclip  # Necessary for our vim-everywhere
 
+    - name: Install uv
+      ansible.builtin.shell: |
+        set -o pipefail
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+      args:
+        executable: /bin/bash
+        creates: "{{ home }}/.local/bin/uv"
+      environment:
+        # Not strictly necessary, but ensures consistency with `creates`
+        UV_INSTALL_DIR: "{{ home }}/.local/bin"
+        # Don't mess with shell startup files
+        UV_NO_MODIFY_PATH: "1"
+
     - name: Set fish as default shell
+      become: true
       user:
-        name: "{{ user }}"
+        name: "{{ ansible_env.USER }}"
         shell: /usr/bin/fish
       
     - name: Install vimplug
@@ -112,23 +85,22 @@
         dest: "{{ home }}/.local/share/nvim/site/autoload/plug.vim"
 
     - name: Install delta (diff viewer)
-      become_user: root
+      become: true
       apt:
         deb: https://github.com/dandavison/delta/releases/download/0.20.1/git-delta_0.20.1_amd64.deb
 
     - name: Install shutter
-      become_user: root
+      become: true
       apt:
-        state: latest
-        name:
-          - shutter
-    
+        name: shutter
+        state: present
+
     - name: Install emoji picker
       community.general.flatpak:
         name:  com.tomjwatson.Emote
         state: present
-   
-    # Keyboard shortcuts are set with dconf. It has a sort of minor drawback—it messes with the GUI tool to 
+
+    # Keyboard shortcuts are set with dconf. It has a sort of minor drawback—it messes with the GUI tool to
     # define shortcuts (System settings → Keyboard shortcuts) and it's not possible to manually add 
     # more shortcuts. Not that terrible. To define new shortcuts via GUI, delete all existing ones, add
     # the new one and then run `dconf dump /org/cinnamon/desktop/keybindings/` to get what you should put
@@ -171,7 +143,7 @@
         - key: "binding"
           value: "['<Super>v']"
         - key: "command"
-          value: "'gnome-terminal -- {{ dotfiles }}/scripts/vim-everywhere'"
+          value: "'gnome-terminal -- {{ playbook_dir }}/scripts/vim-everywhere'"
  
     - name: Updating custom keyboard 'registry'
       tags: [shortcuts]
@@ -180,3 +152,10 @@
         # As dumb as it is, custom shortcuts must be placed in this variable. Will collide with
         # entries defined by hand, but hey... little by little.
         value: "['shutter-screenshot', 'emoji-picker', 'vim-everywhere', '__dummy__']"
+
+    - name: Configure keyboard options
+      tags: [shortcuts]
+      community.general.dconf:
+        key: "/org/cinnamon/desktop/input-sources/xkb-options"
+        value: "['terminate:ctrl_alt_bksp', 'caps:escape_shifted_capslock', 'compose:rwin']"
+

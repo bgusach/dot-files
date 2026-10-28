@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+sudo apt-get update
+sudo apt-get install --yes ansible stow
+ansible-playbook ansible-playbook.yaml --ask-become-pass
+
+# --no-folding: Link individual files, keeping directories available to other tools.
+# --restow: Refresh, deleting stale links
+stow --no-folding --restow --target ~ home
+
